@@ -36,12 +36,8 @@ $(DESTLIB): $(LIB)
 	@echo "    [$@]"
 	cp $(LIB) $(DESTLIB)
 
-libimagesource.so: april_jcam_ImageSourceNative.h $(LIBIMAGESOURCE_OBJS)
+libimagesource.so: $(LIBIMAGESOURCE_OBJS)
 	$(LD) $(LDFLAGS) $(LIBIMAGESOURCE_OBJS) -o libimagesource.so -ldc1394 -lc -lcommon -lpng
-
-april_jcam_ImageSourceNative.h:
-	echo "Rebuilding JNI headers. Ensure java file has been recently built."
-	javah -classpath ../../april.jar  april.jcam.ImageSourceNative
 
 clean:
 	rm -f *~ april_jcam_ImageSourceNative.h april_jcam_ImageSourceFormat.h $(LIB) $(DESTLIB) $(LIBIMAGESOURCE_OBJS) istest main.o tcpstream tcp_image_streamer.o
