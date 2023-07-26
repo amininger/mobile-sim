@@ -12,6 +12,8 @@ SHARED_EXT = so
 
 # parse last line of update-alternatives --display to find out where the currently selected jvm lives, then make include path
 JNI_INCLUDES = -I$(shell readlink -f `which javac` | sed "s:/bin/javac:/include:")
+# Ubuntu JNI headers are also under /linux
+JNI_INCLUDES := $(JNI_INCLUDES) $(JNI_INCLUDES)/linux
 endif
 
 #############################################################
@@ -25,5 +27,10 @@ LDFLAGS = -dynamiclib -framework OpenGL -framework JavaVM -L/usr/X11/lib
 SHARED_EXT = jnilib
 
 JNI_INCLUDES = -I/System/Library/Frameworks/JavaVM.framework/Headers/ -I/usr/X11/include/
+JNI_INCLUDES := $(JNI_INCLUDES) $(JNI_INCLUDES)/linux
 
 endif
+
+# Add our generated header files to the JNI includes; .. will be this jni directory from the 
+# point of view of the makefiles that use this one. I hate Makefiles.
+JNI_INCLUDES := $(JNI_INCLUDES) -I${CURDIR}/../include

@@ -26,15 +26,11 @@ $(DESTLIB): $(LIB)
 	@echo "    [$@]"
 	cp $(LIB) $(DESTLIB)
 
-libjserial.so: april_jserial_JSerial.h $(LIB_APRIL_JSERIAL_OBJS)
+libjserial.so: $(LIB_APRIL_JSERIAL_OBJS)
 	$(LD) $(LDFLAGS) --shared $(LIB_APRIL_JSERIAL_OBJS) -o libjserial.so
 
-april_jserial_JSerial.h:
-	echo "Rebuilding JNI headers. Ensure java file has been recently built."
-	javah -classpath ../../april.jar  april.jserial.JSerial
-
 clean:
-	rm -f $(LIB_APRIL_JSERIAL_OBJS) *~ april_jserial_JSerial.h *.so $(LIB) $(DESTLIB)
+	rm -f $(LIB_APRIL_JSERIAL_OBJS) *~ *.so $(LIB) $(DESTLIB)
 
 %.o: %.c
 	$(CC) $(CCFLAGS) $(JNI_INCLUDES) $<
