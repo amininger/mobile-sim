@@ -5,6 +5,8 @@ THISDIR=$(realpath $(dirname ${BASH_SOURCE[0]:-$0}))
 
 export MOBILE_SIM_HOME=$THISDIR
 
+echo "\e[93mLoading MobileSim development environment from $MOBILE_SIM_HOME\e[0m"
+
 ### Setup Environment Variables
 
 export CLASSPATH=$CLASSPATH:$MOBILE_SIM_HOME/java/mobilesim.jar
