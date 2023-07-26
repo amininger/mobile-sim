@@ -1,5 +1,9 @@
 #!/bin/bash
-# Assumes that the environment variable $MOBILE_SIM_HOME is set to this directory
+
+# Surprisingly tricky! https://stackoverflow.com/a/63072463/474819
+THISDIR=$(realpath $(dirname ${BASH_SOURCE[0]:-$0}))
+
+export MOBILE_SIM_HOME=$THISDIR
 
 ### Setup Environment Variables
 
